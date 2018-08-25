@@ -10,16 +10,13 @@ Route::get('/logout', 'GeneralController@logout')->name('logout');
 
 // Route::get('/send', 'AdminController@send');
 
-Route::group(['prefix' => 'auth', 'middleware' => 'auth'], function () {
+// route group for authenticated admin only
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','check.admin']], function () {
 
-	// route group for authenticated admin only
-	Route::group(['prefix' => 'admin', 'middleware' => 'check.admin'], function () {
+	// route to go to admin dashboard
+	Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
-		// route to go to admin dashboard
-		Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+	// route to activity log
+	Route::get('/activity-logs', 'AdminController@activityLogs')->name('admin.activity.logs');
 
-		// route to activity log
-		Route::get('/activity-logs', 'AdminController@activityLogs')->name('admin.activity.logs');
-
-	});
 });

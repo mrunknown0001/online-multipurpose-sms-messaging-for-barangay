@@ -34,7 +34,7 @@ class AdminController extends Controller
     public function activityLogs()
     {
     	$logs = Log::orderBy('created_at', 'desc')
-    				->paginate(15);
+    				->paginate(10);
 
     	return view('admin.activity-logs', ['logs' => $logs, 'setting' => $this->setting]);
     }

@@ -58,7 +58,7 @@ class LoginController extends Controller
             // add activity log
             ActivityLog::activity_log('Login');
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
     }
 }
