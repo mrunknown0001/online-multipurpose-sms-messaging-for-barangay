@@ -11,6 +11,13 @@ class UserTypesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('user_types')->insert([
+        	[
+        		'name' => 'admin'
+        	],
+        	[
+        		'name' => 'user'
+        	]
+        ]);
     }
 }
