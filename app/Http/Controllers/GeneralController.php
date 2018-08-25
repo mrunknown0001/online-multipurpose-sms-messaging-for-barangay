@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use Session;
+use App\Http\Controllers\ActivityLog;
 
 class GeneralController extends Controller
 {
@@ -28,6 +29,17 @@ class GeneralController extends Controller
     // login method, shows the login page
     public function login()
     {
-        return view('login');
+        return view('login', ['setting' => $this->setting]);
+    }
+
+
+    // method use to logout
+    public function logout()
+    {
+        ActivityLog::activity_log('Logout');
+
+        Auth::logout();
+
+        return redirect()->route('welcome');
     }
 }

@@ -13,6 +13,7 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->insert([
             'user_type_id' => 1,
+            'username' => 'admin',
         	'firstname' => 'FAdmin',
         	'lastname' => 'LAdmin',
         	'password' => bcrypt('password')

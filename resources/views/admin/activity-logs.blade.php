@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Dashboard
+Activity Logs
 @endsection
 
 @section('headside')
@@ -10,5 +10,5 @@ Dashboard
 @endsection
 
 @section('content')
-<p class="text-center">Dashboard</p>
+<p class="text-center">Activity Logs</p>
 @endsection

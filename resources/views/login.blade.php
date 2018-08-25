@@ -1,5 +1,9 @@
 @extends('layouts.guest-layout')
 
+@section('title')
+Login
+@endsection
+
 @section('content')
 <div class="auth">
     <div class="auth-container">
@@ -10,7 +14,7 @@
                 </h1>
             </header>
             <div class="auth-content">
-                <form id="login-form" action="#" method="POST" novalidate="" autocomplete="off">
+                <form id="login-form" action="{{ route('login.post') }}" method="POST" novalidate="" autocomplete="off">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -20,7 +24,7 @@
                         <input type="password" class="form-control underlined" name="password" id="password" placeholder="Enter Password" required> </div>
                     <div class="form-group">
                         <label for="remember">
-                            <input class="checkbox" id="remember" name="remember" type="checkbox">
+                            <input class="checkbox" id="remember" name="remember_me" type="checkbox">
                             <span>Remember me</span>
                         </label>
                         <!-- <a href="reset.html" class="forgot-btn pull-right">Forgot password?</a> -->

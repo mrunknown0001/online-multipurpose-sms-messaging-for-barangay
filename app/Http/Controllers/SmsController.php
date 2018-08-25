@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Semaphore\SemaphoreClient;
+
 class SmsController extends Controller
 {
 
+    public static function sendsms($numbers = null, $message = null)
+    {
+        $client = new SemaphoreClient('8f934d4c8d91337dc98445e52faf85ab', 'CLLRTrading');
+
+        $client->send($numbers, $message);
+    }
+
     // method use to send sms
-    public static function sendSms($number = null, $message = null)
+    public static function sendMsg($number = null, $message = null)
     {
 
         $ch = curl_init();
-        $parameters = array(
+        return $parameters = array(
             'apikey' => '8f934d4c8d91337dc98445e52faf85ab', //Your API KEY
             'number' =>  $number,
             'message' => $message,
@@ -30,7 +39,7 @@ class SmsController extends Controller
         curl_close ($ch);
 
         //Show the server response
-        // return $output;
+        return $output;
 
     }
 

@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->integer('user_type_id')->unsigned();
             $table->foreign('user_type_id')->references('id')->on('user_types');
+            $table->string('username')->unique();
             $table->string('firstname');
             $table->string('lastname')->nullable();
             $table->string('mobile_number')->nullable();

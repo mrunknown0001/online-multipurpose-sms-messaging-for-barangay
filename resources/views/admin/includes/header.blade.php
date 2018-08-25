@@ -19,7 +19,7 @@
                     <a class="dropdown-item" href="#">
                         <i class="fa fa-key icon"></i> Password </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('logout') }}">
                         <i class="fa fa-power-off icon"></i> Logout </a>
                 </div>
             </li>

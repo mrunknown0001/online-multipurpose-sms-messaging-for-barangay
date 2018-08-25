@@ -15,6 +15,8 @@ class CreateSendingGroupsTable extends Migration
     {
         Schema::create('sending_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')
+                ->comment('Name of the Group');
             $table->timestamps();
         });
     }

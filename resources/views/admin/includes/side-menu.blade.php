@@ -8,8 +8,8 @@
         </div>
         <nav class="menu">
             <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                <li class="active">
-                    <a href="#">
+                <li class="{{ route('admin.dashboard') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <i class="fa fa-dashboard"></i> Dashboard
                     </a>
                 </li>
@@ -18,8 +18,8 @@
                         <i class="fa fa-users"></i> Contacts
                     </a>
                 </li>
-                <li class="">
-                    <a href="#">
+                <li class="{{ route('admin.activity.logs') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.activity.logs') }}">
                         <i class="fa fa-history"></i> Activity Logs
                     </a>
                 </li>
