@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
-use App\Http\Controllers\ActivityLog;
+use App\Http\Controllers\ActivityLogController;
 
 class LoginController extends Controller
 {
@@ -56,9 +56,11 @@ class LoginController extends Controller
         if(Auth::attempt(['username' => $username, 'password' => $password], $remember_me)) {
 
             // add activity log
-            ActivityLog::activity_log('Login');
+            ActivityLogController::activity_log('Login');
 
             return redirect()->intended('/admin/dashboard');
         }
+
+        return redirect()->back()->with('error', 'Authentication Error!');
     }
 }

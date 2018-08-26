@@ -139,9 +139,12 @@ $(function() {
 
     var signupValidationSettings = {
 	    rules: {
-	    	firstname: {
-	    		required: true,
-	    	},
+            name: {
+                required: true,
+            },
+            firstname: {
+                required: true,
+            },
 	    	lastname: {
 	    		required: true,
 	    	},
@@ -213,6 +216,7 @@ $(function() {
 			}
 		},
 	    messages: {
+            name: "Please enter Name",
 	    	firstname: "Please enter firstname and lastname",
 	    	lastname: "Please enter firstname and lastname",
             username: {

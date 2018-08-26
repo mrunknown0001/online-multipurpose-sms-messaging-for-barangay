@@ -13,9 +13,14 @@
                         <i class="fa fa-dashboard"></i> Dashboard
                     </a>
                 </li>
-                <li class="">
-                    <a href="#">
+                <li class="{{ route('admin.contacts') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.contacts') }}">
                         <i class="fa fa-users"></i> Contacts
+                    </a>
+                </li>
+                <li class="{{ route('admin.messages') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.messages') }}">
+                        <i class="fa fa-envelope-o"></i> Messages
                     </a>
                 </li>
                 <li class="{{ route('admin.activity.logs') == url()->current() ? 'active' : '' }}">

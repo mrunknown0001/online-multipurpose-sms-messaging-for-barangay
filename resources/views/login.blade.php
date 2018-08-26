@@ -10,10 +10,11 @@ Login
         <div class="card">
             <header class="auth-header">
                 <h1 class="auth-title">
-                    Login
+                    User Login
                 </h1>
             </header>
             <div class="auth-content">
+                @include('includes.all')
                 <form id="login-form" action="{{ route('login.post') }}" method="POST" novalidate="" autocomplete="off">
                     {{ csrf_field() }}
                     <div class="form-group">

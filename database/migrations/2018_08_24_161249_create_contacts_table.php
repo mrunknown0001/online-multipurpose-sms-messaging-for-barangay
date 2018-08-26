@@ -17,8 +17,10 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->string('name')
                 ->comment('Name of the Contact Person');
-            $table->string('mobile_number', 12);
-            $table->string('network');
+            $table->string('mobile_number', 13);
+            $table->integer('sending_group_id')->unsigned()->nullable();
+            $table->foreign('sending_group_id')->references('id')->on('sending_groups');
+            $table->string('network')->nullable();
             $table->timestamps();
         });
     }

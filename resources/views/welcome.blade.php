@@ -24,6 +24,10 @@
       height: 100%;
       width: 100%;
     }
+    h1 {
+      font-size: 50px;
+      font-weight: 900;
+    }
   </style>
 </head>
 <body>

@@ -25,14 +25,14 @@ Activity Logs
 				<tbody>
 					@foreach($logs as $l)
 					<tr>
-						<td>{{ $l->user_id }}</td>
-						<td>{{ $l->action }}</td>
-						<td>{{ $l->created_at }}</td>
+						<td>{{ ucwords($l->user->firstname . ' ' . $l->user->lastname) }} [{{ strtoupper($l->user->privilege->name) }}]</td>
+						<td class="text-center">{{ $l->action }}</td>
+						<td class="text-center">{{ $l->created_at }}</td>
 					</tr>
 					@endforeach
 				</tbody>
-				<tfoot></tfoot>
 			</table>
+			{{ $logs->links() }}
 			@else
 			<p class="text-center">No Logs Found!</p>
 			@endif

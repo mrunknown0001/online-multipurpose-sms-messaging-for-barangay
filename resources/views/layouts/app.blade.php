@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{  asset('modular/css/vendor.css') }}">
         <link rel="stylesheet" href="{{ asset('modular/css/app-blue.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
     </head>
     <body>
         <div class="main-wrapper">
