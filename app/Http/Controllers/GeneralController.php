@@ -54,7 +54,7 @@ class GeneralController extends Controller
 
 
     // method use to determine network
-    public function network_check($number = null)
+    public static function network_check($number = null)
     {
 
         $globe = array('0905', '0906', '0915', '0916', '0917', '0926', '0927', '0935', '0936', '0945', '0955', '0956', '0966', '0975', '0976', '0994', '0995', '0997', '0996', '0937', '0817');

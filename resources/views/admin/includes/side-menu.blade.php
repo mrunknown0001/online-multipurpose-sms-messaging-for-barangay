@@ -13,14 +13,24 @@
                         <i class="fa fa-dashboard"></i> Dashboard
                     </a>
                 </li>
+                <li class="{{ route('admin.sending.groups') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.sending.groups') }}">
+                        <i class="fa fa-users"></i> Sending Groups
+                    </a>
+                </li>
                 <li class="{{ route('admin.contacts') == url()->current() ? 'active' : '' }}">
                     <a href="{{ route('admin.contacts') }}">
-                        <i class="fa fa-users"></i> Contacts
+                        <i class="fa fa-address-book"></i> Contacts
                     </a>
                 </li>
                 <li class="{{ route('admin.messages') == url()->current() ? 'active' : '' }}">
                     <a href="{{ route('admin.messages') }}">
                         <i class="fa fa-envelope-o"></i> Messages
+                    </a>
+                </li>
+                <li class="{{ route('admin.settings') == url()->current() ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings') }}">
+                        <i class="fa fa-cog"></i> Settings
                     </a>
                 </li>
                 <li class="{{ route('admin.activity.logs') == url()->current() ? 'active' : '' }}">

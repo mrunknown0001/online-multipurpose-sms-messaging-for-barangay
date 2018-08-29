@@ -15,13 +15,11 @@ Contacts
 		<a href="{{ route('admin.add.contact') }}" class="btn btn-primary">
 			<i class="fa fa-plus"></i> Add Contact
 		</a>
-		<a href="#" class="btn btn-primary">
-			<i class="fa fa-users"></i> Manage Sending Groups
-		</a>
 	</p>
 	@if(count($contacts) > 0)
 	<div class="row">
 		<div class="col-md-12">
+			@include('includes.all')
 			<table class="table table-bordered table-hover table-striped">
 				<thead>
 					<tr>
@@ -35,13 +33,20 @@ Contacts
 					@foreach($contacts as $c)
 					<tr>
 						<td>{{ ucwords($c->name) }}</td>
-						<td class="text-center">{{ $c->mobile_number }}</td>
-						<td class="text-center"></td>
-						<td class="text-center"></td>
+						<td class="text-center">{{ $c->mobile_number }} <small>{{ $c->network ? strtoupper($c->network) : '' }}</small></td>
+						<td class="text-center">
+							{{ $c->sending_group_id ? strtoupper($c->sg->name) : 'N/A' }}
+						</td>
+						<td class="text-center">
+							<a href="{{ route('admin.update.contact', ['id' => $c->id ]) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i> Update</a>
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#contactDelete-{{ $c->id }}"><i class="fa fa-trash"></i> Delete</button>
+						</td>
 					</tr>
+					@include('admin.includes.modal-contact-delete')
 					@endforeach
 				</tbody>
 			</table>
+			<p class="text-center">{{ $contacts->links() }}</p>
 		</div>
 	</div>
 	@else

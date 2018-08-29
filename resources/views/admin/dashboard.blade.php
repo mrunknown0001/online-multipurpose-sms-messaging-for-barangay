@@ -16,15 +16,15 @@ Dashboard
             <div class="card sameheight-item stats" data-exclude="xs">
                 <div class="card-block">
                     <div class="title-block">
-                        
+                        <strong>Summary Data</strong>
                     </div>
                     <div class="row row-sm stats-container">
                         <div class="col-12 col-sm-6 stat-col">
                             <div class="stat-icon">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-address-book"></i>
                             </div>
                             <div class="stat">
-                                <div class="value">  </div>
+                                <div class="value"> {{ count($contacts) }} </div>
                                 <div class="name"> Contacts </div>
                             </div>
                             <div class="progress stat-progress">
@@ -37,7 +37,7 @@ Dashboard
                             </div>
                             <div class="stat">
                                 <div class="value">  </div>
-                                <div class="name">  </div>
+                                <div class="name"> Sending Groups </div>
                             </div>
                             <div class="progress stat-progress">
                                 <!-- <div class="progress-bar" style="width: 25%;"></div> -->

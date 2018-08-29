@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Messages
+Settings
 @endsection
 
 @section('headside')
@@ -11,11 +11,6 @@ Messages
 
 @section('content')
 <section class="section">
-	<p>
-		<a href="#" class="btn btn-primary"><i class="fa fa-send"></i> Single Send</a>
-		<a href="#" class="btn btn-primary"><i class="fa fa-send"></i> Send By Group</a>
-	</p>
-
-	
+	<p class="text-center">Settings</p>
 </section>
 @endsection

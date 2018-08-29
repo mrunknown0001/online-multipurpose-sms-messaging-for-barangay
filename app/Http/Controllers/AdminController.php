@@ -8,6 +8,7 @@ use DB;
 use Session;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\GeneralController;
 
 use App\User;
 use App\ActivityLog;
@@ -28,7 +29,82 @@ class AdminController extends Controller
     // method to view admin dashboard
     public function dashboard()
     {
-    	return view('admin.dashboard', ['setting' => $this->setting]);
+        $contacts = Contact::get(['id']);
+
+    	return view('admin.dashboard', ['setting' => $this->setting,
+                        'contacts' => $contacts
+        ]);
+    }
+
+
+    // method use to manage sending groups
+    public function sendingGroup()
+    {
+        $sg = SendingGroup::orderBy('name', 'asc')->get();
+
+        return view('admin.sending-groups', ['setting' => $this->setting, 'sg' => $sg]);
+    }
+
+
+    // method use to add sending group
+    public function addSendingGroup()
+    {
+        return view('admin.sending-group-add', ['setting' => $this->setting]);
+    }
+
+
+    // method use to save new sending group
+    public function postAddSendingGroup(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:sending_groups'
+        ]);
+
+        $name = $request['name'];
+
+        $sg = new SendingGroup();
+        $sg->name = $name;
+        $sg->save();
+
+        ActivityLogController::activity_log('Admin Added Sending Group');
+
+        return redirect()->route('admin.sending.groups')->with('success', 'Sending Group Added!');
+    }
+
+
+    // method use to update sending group
+    public function updateSendingGroup($id = null)
+    {
+        $sg = SendingGroup::findorfail($id);
+
+        return view('admin.sending-group-update', ['setting' => $this->setting, 'sg' => $sg]);
+    }
+
+
+    // method use to save update in sending group
+    public function postUpdateSendingGroup(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $sg_id = $request['sg_id'];
+        $name = $request['name'];
+
+        $sg = SendingGroup::findorfail($sg_id);
+
+        $name_check = SendingGroup::whereName($name)->first();
+
+        if(count($name_check) > 0 && $name_check->id != $sg->id) {
+            return redirect()->back()->with('error', 'Sending Group Name Exists!');
+        }
+
+        $sg->name = $name;
+        $sg->save();
+
+        ActivityLogController::activity_log('Admin Updated Sending Group');
+
+        return redirect()->route('admin.sending.groups')->with('success', 'Sending Group Updated!');
     }
 
 
@@ -36,7 +112,7 @@ class AdminController extends Controller
     public function contacts()
     {
         $contacts = Contact::orderBy('name', 'asc')
-                        ->paginate(10);
+                        ->paginate(5);
 
         return view('admin.contacts', ['setting' => $this->setting, 'contacts' => $contacts]);
     }
@@ -45,7 +121,9 @@ class AdminController extends Controller
     // method to add contact
     public function addContact()
     {
-        return view('admin.contact-add', ['setting' => $this->setting]);
+        $sg = SendingGroup::orderBy('name', 'asc')->get(['id', 'name']);
+
+        return view('admin.contact-add', ['sg' => $sg, 'setting' => $this->setting]);
     }
 
 
@@ -61,10 +139,12 @@ class AdminController extends Controller
         $mobile_number = $request['mobile_number'];
         $sending_group_id = $request['sending_group'];
 
-        
 
         if($sending_group_id != null)
             $sending_group = SendingGroup::findOrFail($sending_group_id);
+
+        // check the number if what network it belongs
+        $network = GeneralController::network_check($mobile_number);
 
         $contact = new Contact();
         $contact->name = $name;
@@ -72,10 +152,68 @@ class AdminController extends Controller
         if($sending_group_id != null) {
             $contact->sending_group_id = $sending_group->id;
         }
-        $contact->network = null;
+        $contact->network = $network;
         $contact->save();
 
+        // add activity log
+        ActivityLogController::activity_log('Admin Added Contact');
+
         return redirect()->back()->with('success', 'New Contact Added: ' . $mobile_number);
+    }
+
+
+    // method use to delete contact
+    public function deleteContact($id = null)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+
+        // add activity log
+        ActivityLogController::activity_log('Admin Deleted Contact');
+
+        return redirect()->back()->with('success','Contact Deleted!');
+    }
+
+
+    // method use to update contact
+    public function updateContact($id = null)
+    {
+        $contact = Contact::findOrFail($id);
+        $sg = SendingGroup::orderBy('name', 'asc')->get(['id', 'name']);
+
+        return view('admin.contact-update', ['sg' => $sg, 'setting' => $this->setting, 'contact' => $contact]);
+    }
+
+
+    // method use to save update on contact
+    public function postUpdateContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'mobile_number' => 'required'
+        ]);
+
+        $contact_id = $request['contact_id'];
+        $name = $request['name'];
+        $mobile_number = $request['mobile_number'];
+        $sending_group_id = $request['sending_group'];
+
+        $contact = Contact::findOrFail($contact_id);
+
+        $check_mobile = Contact::whereMobileNumber($mobile_number)->first();
+
+        if(count($check_mobile) > 0 && $check_mobile->id != $contact->id) {
+            return redirect()->back()->with('error', 'Duplicate Mobile Number. Please double check your mobile number.');
+        }
+
+        $contact->name = $name;
+        $contact->mobile_number = $mobile_number;
+        $contact->sending_group_id = $sending_group_id;
+        $contact->save();
+
+        ActivityLogController::activity_log('Admin Updated Contact');
+
+        return redirect()->back()->with('success', 'Contact Successfully Updated!');
     }
 
 
@@ -83,6 +221,13 @@ class AdminController extends Controller
     public function messages()
     {
         return view('admin.messages', ['setting' => $this->setting]);
+    }
+
+
+    // method use to view settings
+    public function settings()
+    {
+        return view('admin.settings', ['setting' => $this->setting]);
     }
 
 

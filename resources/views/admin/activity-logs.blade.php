@@ -27,7 +27,7 @@ Activity Logs
 					<tr>
 						<td>{{ ucwords($l->user->firstname . ' ' . $l->user->lastname) }} [{{ strtoupper($l->user->privilege->name) }}]</td>
 						<td class="text-center">{{ $l->action }}</td>
-						<td class="text-center">{{ $l->created_at }}</td>
+						<td>{{ date('l, F j, Y g:i:s a', strtotime($l->created_at)) }}</td>
 					</tr>
 					@endforeach
 				</tbody>

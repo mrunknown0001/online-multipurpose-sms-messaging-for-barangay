@@ -18,6 +18,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check.admin']], func
 	// route to go to admin dashboard
 	Route::get('/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
 
+	// route to sending groups manager
+	Route::get('/sending-groups', 'AdminController@sendingGroup')->name('admin.sending.groups');
+
+	// route to add sending group
+	Route::get('/sending-group/add', 'AdminController@addSendingGroup')->name('admin.sending.group.add');
+
+	// route to save new sending group
+	Route::post('/sending-group/add', 'AdminController@postAddSendingGroup')->name('admin.sending.group.add.post');
+
+	// route to update sending group
+	Route::get('/sending-group/{id}/update', 'AdminController@updateSendingGroup')->name('admin.sending.group.update');
+
+	// route to save update in sending group
+	Route::post('/sending-group/update', 'AdminController@postUpdateSendingGroup')->name('admin.sending.group.update.post');
+
+	Route::get('/sending-group/update', function () {
+		return abrot(404);
+	});
+
 	// route to view contacts
 	Route::get('/contacts', 'AdminController@contacts')->name('admin.contacts');
 
@@ -27,8 +46,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check.admin']], func
 	// route to save added new contact
 	Route::post('/contact/add', 'AdminController@postAddContact')->name('admin.add.contact.post');
 
+	// route to delete contact
+	Route::get('/contact/{id}/delete', 'AdminController@deleteContact')->name('admin.delete.contact');
+
+	// route to update contact
+	Route::get('/contact/{id}/update', 'AdminController@updateContact')->name('admin.update.contact');
+
+	// route to save update on contact
+	Route::post('/contact/update', 'AdminController@postUpdateContact')->name('admin.update.contact.post');
+
+	Route::get('/contact/update', function () {
+		return abort(404);
+	});
+
 	// route to view messages
 	Route::get('/messages', 'AdminController@messages')->name('admin.messages');
+
+	// route to settings
+	Route::get('/settings', 'AdminController@settings')->name('admin.settings');
 
 	// route to activity log
 	Route::get('/activity-logs', 'AdminController@activityLogs')->name('admin.activity.logs');
