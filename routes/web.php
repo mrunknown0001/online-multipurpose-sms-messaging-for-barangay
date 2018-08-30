@@ -78,6 +78,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check.admin']], func
 	// route to settings
 	Route::get('/settings', 'AdminController@settings')->name('admin.settings');
 
+	// route to save update on settings
+	Route::post('/settings', 'AdminController@postSettings')->name('admin.settings.post');
+
 	// route to activity log
 	Route::get('/activity-logs', 'AdminController@activityLogs')->name('admin.activity.logs');
 

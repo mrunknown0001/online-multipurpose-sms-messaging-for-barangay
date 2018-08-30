@@ -326,6 +326,29 @@ class AdminController extends Controller
     }
 
 
+    // method use to save update on settings
+    public function postSettings(Request $request)
+    {
+        $request->validate([
+            'application_name' => 'required',
+            'barangay_name' => 'required'
+        ]);
+
+        $app = $request['application_name'];
+        $brgy = $request['barangay_name'];
+
+        DB::table('settings')
+                    ->update([
+                        'app_name' => $app,
+                        'barangay_name' => $brgy
+                    ]);
+
+        ActivityLogController::activity_log('Admin Updated Settings!');
+
+        return redirect()->route('admin.settings')->with('success', 'Settings Updated!');
+    }
+
+
     // method to view activity logs
     public function activityLogs()
     {
@@ -335,15 +358,4 @@ class AdminController extends Controller
     	return view('admin.activity-logs', ['logs' => $logs, 'setting' => $this->setting]);
     }
 
-
-    // template call method for sending sms
-    public function send()
-    {
-    	$numbers = array('09156119134', '09101990832');
-
-    	foreach($numbers as $n) {
-    		// SmsController::sendsms($n, 'Sample Loop Message');
-    	}
-    	
-    }
 }
