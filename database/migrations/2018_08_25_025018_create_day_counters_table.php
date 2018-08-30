@@ -15,6 +15,8 @@ class CreateDayCountersTable extends Migration
     {
         Schema::create('day_counters', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('day');
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }

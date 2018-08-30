@@ -12,10 +12,8 @@ Messages
 @section('content')
 <section class="section">
 	<p>
-		<a href="#" class="btn btn-primary"><i class="fa fa-send"></i> Single Send</a>
-		<a href="#" class="btn btn-primary"><i class="fa fa-send"></i> Send By Group</a>
+		<a href="{{ route('admin.send.group.message') }}" class="btn btn-primary"><i class="fa fa-send"></i> Send Group Message</a>
 	</p>
 
-	
 </section>
 @endsection

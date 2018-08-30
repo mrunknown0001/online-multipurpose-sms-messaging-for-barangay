@@ -8,6 +8,8 @@ use Auth;
 use Session;
 use App\Http\Controllers\ActivityLogController;
 
+use App\Contact;
+
 class GeneralController extends Controller
 {
 	protected $setting;

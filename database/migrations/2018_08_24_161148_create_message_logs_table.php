@@ -15,6 +15,9 @@ class CreateMessageLogsTable extends Migration
     {
         Schema::create('message_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('message');
+            $table->string('recipient'); // if single show name and number, if group show group name
+            $table->string('type_of_message');
             $table->timestamps();
         });
     }

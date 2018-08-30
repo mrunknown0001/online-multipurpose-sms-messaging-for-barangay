@@ -15,6 +15,8 @@ class CreateMonthCountersTable extends Migration
     {
         Schema::create('month_counters', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('month');
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }

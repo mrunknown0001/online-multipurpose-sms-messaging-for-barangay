@@ -15,6 +15,8 @@ class CreateYearCountersTable extends Migration
     {
         Schema::create('year_counters', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('year');
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }

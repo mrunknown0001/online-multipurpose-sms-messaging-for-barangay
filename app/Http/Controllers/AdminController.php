@@ -224,6 +224,22 @@ class AdminController extends Controller
     }
 
 
+    // method use to send group message
+    public function sendGroupMessage()
+    {
+        $groups = SendingGroup::orderBy('name', 'asc')->get(['id', 'name']);
+
+        return view('admin.message-send-group', ['setting' => $this->setting, 'groups' => $groups]);
+    }
+
+
+    // method to pose send group message
+    public function postSendGroupMessage(Request $request)
+    {
+        return $request;
+    }
+
+
     // method use to view settings
     public function settings()
     {
