@@ -17,7 +17,8 @@ class CreateMessageLogsTable extends Migration
             $table->increments('id');
             $table->text('message');
             $table->string('recipient'); // if single show name and number, if group show group name
-            $table->string('type_of_message');
+            $table->string('type_of_message')->nullable();
+            $table->integer('count');
             $table->timestamps();
         });
     }

@@ -42,8 +42,18 @@ Messages
 
 		                <div class="form-group">
 		                	<label for="message">Message</label>
-							<textarea name="message" id="message" class="form-control" required></textarea>
+							<textarea name="message" id="message" class="form-control underlined" required></textarea>
 		                </div>
+                        <div class="form-group">
+                            <label for="message_type">Message Type</label>
+                            <select class="form-control" name="message_type" id="message_type" required>
+                                <option value="General Message">General Message</option>
+                                <option value="Announcement">Announcement</option>
+                                <option value="Trivia">Trivial Message</option>
+                                <option value="Alert">Alert Message</option>
+                                <option value="Warning">Warning Message</option>
+                            </select>
+                        </div>
 		                <div class="form-group">
 		                	<button class="btn btn-primary"><i class="fa fa-send-o"></i> Send Message</button>
 		                </div>

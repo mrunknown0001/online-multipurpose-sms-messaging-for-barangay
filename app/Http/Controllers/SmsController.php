@@ -39,8 +39,16 @@ class SmsController extends Controller
         curl_close ($ch);
 
         //Show the server response
-        return $output;
+        // return $output;
 
+    }
+
+
+    public function account()
+    {
+        $client = new SemaphoreClient('8f934d4c8d91337dc98445e52faf85ab', 'CLLRTrading');
+
+        return $client->credit_balance;
     }
 
 }

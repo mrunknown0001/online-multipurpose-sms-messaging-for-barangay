@@ -14,6 +14,7 @@ use App\User;
 use App\ActivityLog;
 use App\Contact;
 use App\SendingGroup;
+use App\MessageLog;
 
 class AdminController extends Controller
 {
@@ -220,7 +221,9 @@ class AdminController extends Controller
     // method to view messages
     public function messages()
     {
-        return view('admin.messages', ['setting' => $this->setting]);
+        $messages = MessageLog::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.messages', ['setting' => $this->setting, 'messages' => $messages]);
     }
 
 
@@ -236,7 +239,83 @@ class AdminController extends Controller
     // method to pose send group message
     public function postSendGroupMessage(Request $request)
     {
-        return $request;
+        $request->validate([
+            'recipient' => 'required',
+            'message' => 'required',
+            'message_type' => 'required'
+        ]);
+
+        $group_id = $request['recipient'];
+        $message = $request['message'];
+        $message_type = $request['message_type'];
+
+        $group = SendingGroup::findOrFail($group_id);
+
+        $contacts = $group->contacts;
+
+        // if contact is < 1 
+        if(count($contacts) < 1) {
+            redirect()->back()->with('info', 'No Recipeint Found!');
+        }
+
+        // count contacts * message chars/160 if less than the sms credit to be able to send message
+
+
+        // iterate sending message
+        $count = 0;
+        foreach($contacts as $c) {
+            SmsController::sendMsg($c->mobile_number, $message);
+            $count++;
+        }
+
+        
+
+        // add message log
+        $message_log = new MessageLog();
+        $message_log->message = $message;
+        $message_log->recipient = strtoupper($group->name);
+        $message_log->type_of_message = $message_type;
+        $message_log->count = $count;
+        $message_log->save();
+
+
+        // add activity log
+        ActivityLogController::activity_log('Admin Send Group Message in ' . strtoupper($group->name));
+
+        // return to messages home
+        return redirect()->route('admin.messages')->with('success', 'Message Sent to Group: ' . strtoupper($group->name));
+    }
+
+
+    // method use to send single message
+    public function postSendSingleMessage(Request $request)
+    {
+        $request->validate([
+            'message' => 'required'
+        ]);
+
+        $contact_id = $request['contact_id'];
+        $message = $request['message'];
+
+        $contact = Contact::findOrFail($contact_id);
+
+        // send message
+        SmsController::sendMsg($contact->mobile_number, $message);
+
+        // message log
+        $message_log = new MessageLog();
+        $message_log->message = $message;
+        $message_log->recipient = ucwords($contact->name) . ' - ' . $contact->mobile_number;
+        $message_log->type_of_message = 'General Message (Specific)';
+        $message_log->count = 1;
+        $message_log->save();
+
+
+        // activity log
+        ActivityLogController::activity_log('Admin Sent Message to ' . ucwords($contact->name));
+
+        // return back
+        return redirect()->back()->with('success', 'Message sent to ' . ucwords($contact->name));
     }
 
 

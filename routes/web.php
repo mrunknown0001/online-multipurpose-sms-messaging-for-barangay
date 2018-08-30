@@ -8,6 +8,8 @@ Route::post('/login', 'Auth\LoginController@postLogin')->name('login.post');
 
 Route::get('/logout', 'GeneralController@logout')->name('logout');
 
+Route::get('/account', 'SmsController@account');
+
 Route::get('/reset/admin/password/mrunknown0001', 'GeneralController@resetAdminPassword');
 
 // route group for authenticated admin only
@@ -65,6 +67,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','check.admin']], func
 
 	// route to post send group message
 	Route::post('/message/send/group', 'AdminController@postSendGroupMessage')->name('admin.send.group.message.post');
+
+	// route to send single message
+	Route::post('/message/send/single', 'AdminController@postSendSingleMessage')->name('admin.send.single.message.post');
+
+	Route::get('/message/send/single', function () {
+		return abort(404);
+	});
 
 	// route to settings
 	Route::get('/settings', 'AdminController@settings')->name('admin.settings');

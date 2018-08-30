@@ -32,8 +32,13 @@ Contacts
 				<tbody>
 					@foreach($contacts as $c)
 					<tr>
-						<td>{{ ucwords($c->name) }}</td>
-						<td class="text-center">{{ $c->mobile_number }} <small>{{ $c->network ? strtoupper($c->network) : '' }}</small></td>
+						<td>
+							{{ ucwords($c->name) }}
+							<a href="javascript:void(0)" class="" data-toggle="modal" data-target="#sendMessage-{{ $c->id }}"><i class="fa fa-envelope-o"></i></a>
+						</td>
+						<td class="text-center">
+							{{ $c->mobile_number }} <small>{{ $c->network ? strtoupper($c->network) : '' }}</small> 
+						</td>
 						<td class="text-center">
 							{{ $c->sending_group_id ? strtoupper($c->sg->name) : 'N/A' }}
 						</td>
@@ -42,6 +47,7 @@ Contacts
 							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#contactDelete-{{ $c->id }}"><i class="fa fa-trash"></i> Delete</button>
 						</td>
 					</tr>
+					@include('admin.includes.modal-contact-single-send')
 					@include('admin.includes.modal-contact-delete')
 					@endforeach
 				</tbody>

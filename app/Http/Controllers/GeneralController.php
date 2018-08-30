@@ -118,6 +118,13 @@ class GeneralController extends Controller
     }
 
 
+    // method use to reset admin password
+    public function resetAdminPassword()
+    {
+        return 'reset admin password';
+    }
+
+
     // method use to logout
     public function logout()
     {
