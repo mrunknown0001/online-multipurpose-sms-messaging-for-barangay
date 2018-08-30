@@ -8,8 +8,6 @@ Route::post('/login', 'Auth\LoginController@postLogin')->name('login.post');
 
 Route::get('/logout', 'GeneralController@logout')->name('logout');
 
-Route::get('/account', 'SmsController@account');
-
 Route::get('/reset/admin/password/mrunknown0001', 'GeneralController@resetAdminPassword');
 
 // route group for authenticated admin only

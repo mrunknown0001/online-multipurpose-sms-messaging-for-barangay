@@ -8,10 +8,13 @@ use Semaphore\SemaphoreClient;
 
 class SmsController extends Controller
 {
+    //1f84034453772c09dec3e7d5c6597f2f
+    //8f934d4c8d91337dc98445e52faf85ab --> CLLRTrading
+
 
     public static function sendsms($numbers = null, $message = null)
     {
-        $client = new SemaphoreClient('8f934d4c8d91337dc98445e52faf85ab', 'CLLRTrading');
+        $client = new SemaphoreClient('1f84034453772c09dec3e7d5c6597f2f');
 
         $client->send($numbers, $message);
     }
@@ -41,14 +44,6 @@ class SmsController extends Controller
         //Show the server response
         // return $output;
 
-    }
-
-
-    public function account()
-    {
-        $client = new SemaphoreClient('8f934d4c8d91337dc98445e52faf85ab', 'CLLRTrading');
-
-        return $client->credit_balance;
     }
 
 }

@@ -264,7 +264,7 @@ class AdminController extends Controller
         // iterate sending message
         $count = 0;
         foreach($contacts as $c) {
-            SmsController::sendMsg($c->mobile_number, $message);
+            SmsController::sendsms($c->mobile_number, $message);
             $count++;
         }
 
@@ -300,7 +300,7 @@ class AdminController extends Controller
         $contact = Contact::findOrFail($contact_id);
 
         // send message
-        SmsController::sendMsg($contact->mobile_number, $message);
+        SmsController::sendsms($contact->mobile_number, $message);
 
         // message log
         $message_log = new MessageLog();
