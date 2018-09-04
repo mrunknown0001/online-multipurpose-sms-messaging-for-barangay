@@ -24,14 +24,13 @@ class SmsController extends Controller
     {
 
         $ch = curl_init();
-        return $parameters = array(
-            'apikey' => '8f934d4c8d91337dc98445e52faf85ab', //API KEY
+        $parameters = array(
+            'apikey' => '1f84034453772c09dec3e7d5c6597f2f', //Your API KEY
             'number' =>  $number,
             'message' => $message,
-            'sendername' => 'CLLRTrading' // sender name CLLRTrading
+            'sendername' => 'SEMAPHORE' // sender name
         );
         curl_setopt( $ch, CURLOPT_URL,'http://api.semaphore.co/api/v4/messages' );
-        // curl_setopt( $ch, CURLOPT_URL,'http://api.semaphore.co/api/v4/priority' );
         curl_setopt( $ch, CURLOPT_POST, 1 );
 
         //Send the parameters set above with the request
@@ -43,7 +42,7 @@ class SmsController extends Controller
         curl_close ($ch);
 
         //Show the server response
-        // return $output;
+        return $output;
 
     }
 
